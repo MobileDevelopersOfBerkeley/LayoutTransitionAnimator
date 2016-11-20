@@ -18,8 +18,7 @@ public class LayoutAnimator {
     private String slideDirection;
     private int delayOffset = 200;
     private int animationDuration = 1000; //default value
-    private int translationX;
-    private int translationY;
+    private int translationOffset = 100;
 
 
     public LayoutAnimator(ViewGroup viewLayout, String slideDirection){
@@ -37,24 +36,16 @@ public class LayoutAnimator {
             v.setAlpha(0f);
             switch (slideDirection) {
                 case "LEFT":
-                    v.setTranslationX(-100f);
-                    translationX = 100;
-                    translationY = 0;
+                    v.setTranslationX(-translationOffset);
                     break;
                 case "TOP":
-                    v.setTranslationY(-100f);
-                    translationX = 0;
-                    translationY = -100;
+                    v.setTranslationY(-translationOffset);
                     break;
                 case "RIGHT":
-                    v.setTranslationX(100f);
-                    translationX = -100;
-                    translationY = 0;
+                    v.setTranslationX(translationOffset);
                     break;
                 case "BOTTOM": // Gravity.BOTTOM
-                    v.setTranslationY(100f);
-                    translationX = 0;
-                    translationY = -100;
+                    v.setTranslationY(translationOffset);
             }
         }
     }
@@ -63,8 +54,8 @@ public class LayoutAnimator {
         for(View v : viewList){
             System.out.println(v.getWidth());
             v.animate().alpha(1f)
-                    .translationX(translationX)
-                    .translationY(translationY)
+                    .translationX(0f)
+                    .translationY(0f)
                     .setDuration(animationDuration)
                     .setStartDelay(delayTime)
                     .setInterpolator(AnimUtils.getLinearOutSlowInInterpolator(
@@ -77,6 +68,9 @@ public class LayoutAnimator {
     }
     public void setDelayOffset(int duration){
         this.delayOffset = duration;
+    }
+    public void setTranslationOffset(int offset){
+        this.translationOffset = offset;
     }
 
 }
